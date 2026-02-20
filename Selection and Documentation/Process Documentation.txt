@@ -1,0 +1,137 @@
+System Overview
+Purpose of the system
+    The purpose of this system is to provide a database structure for an online pet supply store. The system is designed to manage users, products, categories, orders, and related information in an organized and efficient way. It ensures that data is stored correctly, relationships between different parts of the system are maintained, and operations such as placing orders and managing products can be supported reliably. The database also helps maintain data integrity, reduce duplication, and allow easy retrieval of information when needed.
+
+
+Description of the online pet supply store
+    The online pet supply store is a platform where customers can browse and purchase products for their pets, such as food, toys, and accessories. Customers can create accounts, add products to their cart, and place orders using their saved addresses. Each order contains information about the products purchased, quantities, and total cost. The system also supports product categorization, which helps organize products and makes browsing easier. In addition, the system allows administrators to manage products, monitor orders, and maintain overall store data.
+
+
+Functional Requirements
+    User registration and login
+    The system allows users to create an account by providing basic information such as first name, last name, email, and password. Each user must have a unique email address. Registered users can log in to access their account and perform actions such as adding items to the cart, managing addresses, and placing orders. The system also tracks the user’s account status and login activity.
+
+    Product browsing and categories
+    The system allows users to view available products along with details such as name, price, description, and stock quantity. Products are organized into categories to make browsing easier. Categories can also have parent categories to support a hierarchical structure. This helps users find products more efficiently.
+
+    Cart management
+    The system allows users to add products to their shopping cart. Users can update the quantity of items or remove items from the cart. The cart stores the selected products along with their quantities and prices at the time they were added. Each cart item is linked to a specific user and product.
+
+    Order placement
+    The system allows users to place orders using the items in their cart. Each order is linked to the user and a selected delivery address. The system stores order details such as order number, status, total amount, and payment status. The order also contains individual order items, including product name, quantity, and price at the time of purchase.
+
+    Address management
+    The system allows users to add and manage multiple delivery addresses. Each address contains details such as recipient name, phone number, city, postal code, and country. Users can also set a default address for convenience during checkout. Each address is linked to a specific user.
+
+    Admin product management
+    The system allows administrators to manage products in the store. This includes adding new products, updating existing product information, and managing stock levels. Administrators can also organize products into categories. This ensures that the product catalog remains accurate and up to date.
+
+
+    Non-Functional Requirements
+    Security
+    The system ensures that user information is protected. Passwords are stored in a hashed format instead of plain text to prevent unauthorized access. Each user has controlled access based on their role, such as customer or admin. The system also uses constraints to prevent unauthorized or invalid data from being stored in the database.
+
+    Performance
+    The system is designed to retrieve and store data efficiently. Primary keys and indexes are used to allow fast searching and access to records. The database structure reduces unnecessary duplication, which improves query performance. This ensures that users can browse products, manage carts, and place orders without delays.
+
+    Scalability
+    The database is designed in a way that allows it to handle growth over time. New users, products, and orders can be added without affecting the existing structure. The use of separate tables and proper relationships allows the system to support a large number of records as the store grows.
+
+    Data integrity
+    The system ensures that all data stored is accurate and consistent. Primary keys ensure that each record is unique, while foreign keys maintain correct relationships between tables. Constraints such as NOT NULL, UNIQUE, and CHECK prevent invalid data from being entered. This helps maintain reliable and consistent information throughout the system.
+
+
+Database Design Decisions
+    Why relational database was used
+    A relational database was used because the system contains structured data with clear relationships, such as users, orders, and products. It allows data to be organized into tables and linked using relationships, which makes management easier and more reliable.
+
+Table structure reasoning
+    Separate tables were created for users, products, orders, addresses, and other entities to keep data organized. Each table stores information related to one specific entity. This makes the system easier to maintain and reduces data duplication.
+
+Normalization approach
+    The database was normalized to reduce redundancy and improve consistency. Data was divided into multiple related tables so that the same information is not stored in multiple places. This helps prevent update and deletion problems.
+
+Use of primary and foreign keys
+    Primary keys were used to uniquely identify each record in a table. Foreign keys were used to connect related tables, such as linking orders to users and order items to orders. This ensures that relationships between data remain accurate.
+
+
+Entity Identification
+    Users
+    Stores information about customers and administrators. This includes personal details, login information, and account status.
+
+    Addresses
+    Stores delivery address information for users. Each address belongs to a specific user and is used for order delivery.
+
+    Products
+    Stores information about items available in the store. This includes product name, price, stock quantity, and status.
+
+    Categories
+    Stores product categories to help organize products. Categories can also have parent categories to support hierarchy.
+
+    Product_Categories
+    Links products and categories. This allows a product to belong to multiple categories.
+
+    Orders
+    Stores information about customer orders. This includes the user who placed the order, the delivery address, and the total amount.
+
+    Order_Items
+    Stores the individual products included in each order. This includes quantity, price, and product details at the time of purchase.
+
+    Cart_Items
+    Stores products added to a user’s shopping cart. This allows users to manage items before placing an order.
+
+Relationship Design
+    Users and Addresses
+    One user can have many addresses, but each address belongs to one user. This is a one-to-many relationship.
+
+    Users and Orders
+    One user can place many orders, but each order belongs to one user. This is a one-to-many relationship.
+
+    Addresses and Orders
+    One address can be used in many orders, but each order uses one address. This is a one-to-many relationship.
+
+    Orders and Order_Items
+    One order can contain many order items, but each order item belongs to one order. This is a one-to-many relationship.
+
+    Products and Order_Items
+    One product can appear in many order items, but each order item refers to one product. This is a one-to-many relationship.
+
+    Users and Cart_Items
+    One user can have many cart items, but each cart item belongs to one user. This is a one-to-many relationship.
+
+    Products and Cart_Items
+    One product can appear in many cart items, but each cart item refers to one product. This is a one-to-many relationship.
+
+    Products and Categories
+    A product can belong to many categories, and a category can contain many products. This is a many-to-many relationship implemented using the product_categories table.
+
+Constraints and Validation
+    Primary keys
+    Each table has a primary key to uniquely identify every record. This ensures that no two records in the same table can have the same identifier. For example, user ID identifies each user, and product ID identifies each product.
+
+    Foreign keys
+    Foreign keys were used to link related tables together. For example, the orders table links to the users table, and the order_items table links to both orders and products. This ensures that related data exists and maintains consistency between tables.
+
+    Unique constraints
+    Unique constraints were used to prevent duplicate values where necessary. For example, the email field in the users table is unique so that no two users can register with the same email. The SKU in the products table is also unique to identify products correctly.
+
+    Check constraints
+    Check constraints were used to ensure valid values are stored. For example, price and quantity must not be negative, and certain fields must meet minimum length or valid format requirements. This helps prevent invalid data from being stored.
+
+ERD Design Process
+    How the diagram was created
+    The ERD was created by first identifying the main entities required for the system, such as users, products, orders, and categories. After identifying the entities, their attributes were defined. Relationships between entities were then established using foreign keys. The structure was reviewed and adjusted to ensure proper organization and normalization.
+
+    Tools used (MySQL Workbench and draw.io)
+    MySQL Workbench was used to design and generate the database model and visualize relationships between tables. It helped define tables, keys, and constraints clearly. draw.io was used to create and refine the ERD diagram for presentation, allowing better visualization and organization of entities and relationships.
+
+Assumptions Made
+    Users can have multiple addresses but only one default address.
+    Products can belong to multiple categories.
+    Orders can only be placed by registered users.
+    Stock levels are updated immediately after order placement.
+    Discounts and taxes are applied at the time of order creation.
+    Admins are responsible for managing products and categories.
+
+Summary
+    The database design organizes all key elements of an online pet supply store efficiently. It ensures data integrity, supports all main functionalities like user management, product browsing, cart, and orders, and allows for scalability as the store grows. Relationships and constraints maintain consistency, while normalization reduces redundancy, making the system reliable and easy to maintain.
